@@ -89,4 +89,10 @@ export const loginUser = TryCatch(async(req,res)=>{
     }, process.env.Jwt_Sec, {
         expiresIn:"15d"
     })
+
+    res.status(200).json({
+        message: `welcome back ${user.name}`,
+        token, 
+        user,
+    })
 })
