@@ -96,3 +96,9 @@ export const loginUser = TryCatch(async(req,res)=>{
         user,
     })
 })
+
+export const myProfile = TryCatch(async(req,res)=>{
+    const user = await User.findById(req.user._id);
+
+    res.json({user})
+})
