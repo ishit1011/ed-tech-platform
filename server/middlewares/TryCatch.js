@@ -11,4 +11,4 @@ const TryCatch = (handler) => {
     }
 }
 
-export default TryCatch
+export default TryCatch;

@@ -10,35 +10,35 @@ export const register = TryCatch(async(req,res)=>{
     let user = await User.findOne({email})
 
     if(user)
-        return res.status(400).json({
-            message: "User Already exists",
-        })
+    return res.status(400).json({
+        message: "User Already exists",
+    })
 
-        const hashPassword = await bcrypt.hash(password,10);
+    const hashPassword = await bcrypt.hash(password,10);
             
-        user = {
+    user = {
             name,
             email,
             password: hashPassword,
         }
 
-        const otp = Math.floor(Math.random() * 1000000);
+    const otp = Math.floor(Math.random() * 1000000);
 
-        const activationToken = jwt.sign({
-            user,otp,
-        },process.env.Activation_Secret,{
-            expiresIn: '5m'
-        })
+    const activationToken = jwt.sign({
+        user,otp,
+    },process.env.Activation_Secret,{
+        expiresIn: '5m'
+    })
 
-        const data = {
-            name,otp,
-        }
+    const data = {
+        name,otp,
+    }
 
-        await sendMail(email,"E-learning",data)
+    await sendMail(email,"E-learning",data)
 
-        res.status(200).json({
-            message: "Otp sent to your email", activationToken
-        })
+    res.status(200).json({
+        message: "Otp sent to your email", activationToken
+    })
 })
 
 export const verifyUser = TryCatch(async(req,res)=>{
@@ -64,5 +64,29 @@ export const verifyUser = TryCatch(async(req,res)=>{
 
     res.json({
         message: "User Registered"
+    })
+})
+
+export const loginUser = TryCatch(async(req,res)=>{
+    const {email, password} = req.body;
+
+    const user = await User.findOne({email});
+
+    if(!user)
+        return res.status(400).json({
+            message: "No user with this email",
+    });
+
+    const matchPassword = await bcrypt.compare(password, user.password);
+
+    if(!matchPassword)
+        return res.status(400).json({
+            message: "Wrong Password",
+    })
+
+    const token = await jwt.sign({
+        _id: user._id,
+    }, process.env.Jwt_Sec, {
+        expiresIn:"15d"
     })
 })
