@@ -6,7 +6,7 @@ export const isAuth = async(req,res,next) =>{
         const token = req.headers.token;
 
         if(!token)
-            res.status(403).json({
+            return res.status(403).json({
                 message: "Please Login",
             })
             const decodedData = jwt.verify(token, process.env.Jwt_Sec);
@@ -17,6 +17,21 @@ export const isAuth = async(req,res,next) =>{
     } catch (error) {
         res.status(500).json({
             message: "Login First"
+        })
+    }
+}
+
+export const isAdmin = (req,res,next) => {
+    try {
+        if(req.user.role != "admin"){
+            return res.status(403).json({
+                message: "You are not admin"
+            })
+        }
+        next();
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
         })
     }
 }
