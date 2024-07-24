@@ -3,7 +3,8 @@ import TryCatch from "../middlewares/TryCatch.js";
 import { Courses } from "../models/courseModel.js";
 import { Lecture } from "../models/lectureModel.js";
 import { User } from "../models/userModel.js";
-import crypto from 'crypto'
+import crypto from 'crypto';
+import {Payment} from '../models/paymentModel.js'
 
 export const getAllCourses = TryCatch(async(req,res)=>{
     const courses = await Courses.find();
@@ -105,7 +106,34 @@ export const paymentVerification = TryCatch(async(req,res)=>{
 
     const body = stripe_order_id + "|" + stripe_payment_id;
 
-    const expectedSignature = crypto.createHmac("sha256", process.env.Stripe_Secret)
+    const expectedSignature = crypto.createHmac("sha256", process.env.Stripe_Secret).update(body).digest("hex");
+
+    const isAuthentic = expectedSignature === stripe_signature;
+
+    if(isAuthentic){
+        await Payment.create({
+            stripe_order_id,
+            stripe_signature,
+            stripe_payment_id,
+        })
+
+        const user = await User.findById(req.user._id);
+
+        const course = await Courses.findById(req.params.id);
+
+        user.subscription.push(course._id);
+
+        await user.save();
+
+        res.status(200).json({
+            message: "You have successfully purchased the course"
+        })
+    } else{
+        return res.status(400).json({
+            message: "Payment Failed",
+        })
+    }
+
 })
 
 

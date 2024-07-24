@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./database/dbs.js";
 import Stripe from "stripe";
+import cors from 'cors' // helps to fetch backend API to frontend (prevents cross-site error)
+
 // Import routes
 import userRoutes from './routes/user.js'
 import courseRoutes from './routes/course.js'
@@ -21,6 +23,7 @@ const port = process.env.PORT || 5000;
 // middlewares
 app.use(express.json());
 app.use('/uploads', express.static("uploads"));
+app.use(cors());
 
 app.get("/", (req,res)=>{
     res.send("Server is working")
