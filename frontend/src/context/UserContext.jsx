@@ -36,6 +36,48 @@ export const UserContextProvider = ({children}) => {
         }
     }
 
+    async function registerUser(name, email, password, navigate){
+        setBtnLoading(true);
+        try {
+            // Import backend data --> from backend server
+            const {data} = await axios.post(`${server}/api/user/register`,{name,email,password,});
+
+            toast.success(data.message);
+            localStorage.setItem('activationToken', data.activationToken);
+            setBtnLoading(false);
+            navigate("/verify")
+        } catch (error) {
+            setBtnLoading(false)
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('An error occurred. Please try again.');
+            }
+            console.error('Register error:', error); // Log the error for debugging purposes
+        }
+    }
+
+    async function verifyOtp(otp, navigate){
+        setBtnLoading(true);
+        const activationToken = localStorage.getItem('activationToken');
+
+        try {
+            const {data} = await axios.post(`${server}/api/user/verify`,{otp, activationToken});
+            toast.success(data.message);
+            navigate('/login');
+            localStorage.clear();
+            setBtnLoading(false);
+        } catch (error) {
+            setBtnLoading(false);
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('An error occurred. Please try again.');
+            }
+            console.error('Register error:', error); // Log the error for debugging purposes
+        }
+    }
+
     async function fetchUser() {
         try {
             const {data} = await axios.get(`${server}/api/user/me`, {
@@ -52,13 +94,14 @@ export const UserContextProvider = ({children}) => {
             setLoading(false);
         }
     }
+    
 
     useEffect(()=>{
         fetchUser()
     },[]);
 
     return (
-    <UserContext.Provider value={{ user, setUser, setIsAuth, isAuth, loginUser, btnLoading, loading}}>
+    <UserContext.Provider value={{ user, setUser, setIsAuth, isAuth, loginUser, btnLoading, loading, registerUser, verifyOtp}}>
         {children}
         <Toaster />
     </UserContext.Provider>)

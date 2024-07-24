@@ -10,22 +10,29 @@ import Verify from './pages/auth/Verify'
 import About from './pages/about/About'
 import Account from './pages/account/Account'
 import { UserData } from './context/UserContext'
+import Loading from './components/loading/Loading'
+import Courses from './pages/courses/Courses'
+import CourseDesc from './pages/coursedescription/CourseDesc'
 
 const App = () => {
-  const {isAuth} = UserData();
+  const {isAuth, user, loading} = UserData();
   return (
-    <BrowserRouter>
-    <Header/>
+    <>
+    {loading ? (<Loading/>) :(<BrowserRouter>
+    <Header isAuth={isAuth}/>
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/about' element={<About />} />
-      <Route path='/account' element={isAuth ? <Account /> : <Login />} />
+      <Route path='/courses' element={<Courses />} />
+      <Route path='/account' element={isAuth ? <Account user={user} /> : <Login />} />
       <Route path='/login' element={isAuth ? <Home/> : <Login />} />
       <Route path='/register' element={isAuth ? <Home/> : <Register />} />
       <Route path='/verify' element={isAuth ? <Home/> : <Verify />} />
+      <Route path='/course/:id' element={isAuth ? <CourseDesc user={user}/> : <Login/>}/>
     </Routes>
     <Footer />
-    </BrowserRouter>
+    </BrowserRouter>)}
+    </>
   )
 }
 

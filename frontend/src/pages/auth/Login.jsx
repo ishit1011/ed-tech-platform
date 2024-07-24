@@ -17,7 +17,7 @@ const Login = () => {
 
   return (
     <div className="auth-page">
-        <div className="auth-form">
+        <div className="auth-form"> 
             <h2>Login</h2>
             <form onSubmit={submitHandler}>
                 <label htmlFor="email">Email</label>
