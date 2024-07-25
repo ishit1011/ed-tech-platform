@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./database/dbs.js";
-import Stripe from "stripe";
+import Razorpay from 'razorpay'
 import cors from 'cors' // helps to fetch backend API to frontend (prevents cross-site error)
 
 // Import routes
@@ -11,9 +11,9 @@ import adminRoutes from './routes/admin.js'
 
 dotenv.config();
 
-export const instance = new Stripe({
-    key_id: process.env.Stripe_Key,
-    key_secret: process.env.Stripe_Secret,
+export const instance = new Razorpay({
+    key_id: process.env.Razorpay_Key,
+    key_secret: process.env.Razorpay_Secret,
 })
 
 const app = express();
