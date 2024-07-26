@@ -27,7 +27,7 @@ export const addLectures = TryCatch(async(req,res)=>{
         return res.status(404).json({
             message: "No Course with this id",
         })
-    }
+    } 
 
     const {title, description} = req.body;
 

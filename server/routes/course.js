@@ -12,4 +12,4 @@ router.get('/mycourse', isAuth, getMyCourses);
 router.post('/course/checkout/:id', isAuth, checkout);
 router.post('/verification/:id', isAuth, paymentVerification);
 
-export default router; 
+export default router;  
