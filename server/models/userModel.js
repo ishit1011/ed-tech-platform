@@ -17,7 +17,7 @@ const schema = new mongoose.Schema({
     role:{
         type: String,
         default: "user",
-    },
+    }, 
     subscription:[
         {
             type: mongoose.Schema.Types.ObjectId,

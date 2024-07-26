@@ -32,7 +32,7 @@ const Account = ({user}) => {
                         <strong>Email - {user.email}</strong>
                     </p>
 
-                    <button className="common-btn"><MdDashboard/>Dashboard</button>
+                    <button onClick={()=> navigate(`/${user._id}/dashboard`)} className="common-btn"><MdDashboard/>Dashboard</button>
                     <br />
                     <button onClick={logoutHandler} className="common-btn" style={{background:"red"}}><IoMdLogOut/>Logout</button>
                 </div>

@@ -57,7 +57,7 @@ export const fetchSingleLecture = TryCatch(async(req,res)=>{
         })
     }
 
-    if(!user.subscription.includes(req.params.id)){
+    if(!user.subscription.includes(lecture.course)){
         return res.status(400).json({
             message: "You haven't subscribed to this course"
         })
@@ -113,7 +113,7 @@ export const paymentVerification = TryCatch(async(req,res)=>{
 
     if(isAuthentic){
         await Payment.create({
-            razorpay_order_id,
+            razorpay_order_id, 
             razorpay_signature,
             razorpay_payment_id,
         })

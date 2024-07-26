@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './auth.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserData } from '../../context/UserContext'
+import { CourseData } from '../../context/CourseContext'
 
 const Login = () => {
 
@@ -10,9 +11,12 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { fetchMyCourse } = CourseData();
+
     const submitHandler = async(e)=>{
         e.preventDefault();
-        await loginUser(email, password, navigate);
+        await loginUser(email, password, navigate, fetchMyCourse);
     }
 
   return (

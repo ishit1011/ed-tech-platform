@@ -12,7 +12,7 @@ const CourseDesc = ({user}) => {
     const params = useParams(); // used to get course ID : "paramas.id"
     const navigate = useNavigate();
 
-    const {fetchSingleCourse, course, fetchCourses} = CourseData();
+    const {fetchSingleCourse, course, fetchCourses, fetchMyCourse} = CourseData();
     const {fetchUser} = UserData();
 
     useEffect(()=>{
@@ -57,6 +57,7 @@ const CourseDesc = ({user}) => {
 
                     await fetchUser();
                     await fetchCourses();
+                    await fetchMyCourse();
                     toast.success(data.message);
                     setLoading(false);
                     navigate(`/payment-success/${razorpay_payment_id}`)
