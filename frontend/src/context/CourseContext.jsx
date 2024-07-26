@@ -41,7 +41,7 @@ export const CourseContextProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
+    useEffect(() => { 
         fetchCourses();
         fetchMyCourse();
     }, []); 

@@ -3,10 +3,31 @@ import './courseCard.css'
 import { server } from '../../main'
 import { UserData } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { CourseData } from '../../context/CourseContext'
 
 const CourseCard = ({course}) => {
     const navigate = useNavigate();
     const {user, isAuth} = UserData();
+
+    const {fetchCourses, } = CourseData();
+    
+    const deleteHandler = async(id) => {
+        if(confirm('Are you sure want to delete this course')){
+            try {
+                const {data} = await axios.delete(`${server}/api/course/${id}`,{
+                    headers: {
+                        token: localStorage.getItem('token'),
+                    }
+                })
+    
+                toast.success(data.message);
+                fetchCourses();
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        }
+    }
 
   return (
     <div className="course-card">
@@ -43,7 +64,7 @@ const CourseCard = ({course}) => {
 
         {
             user && user.role === "admin" && (
-                <button className='common-btn' style={{background:"red"}}>
+                <button onClick={()=> deleteHandler(course._id)} className='common-btn' style={{background:"red"}}>
                     Delete
                 </button>
             )
