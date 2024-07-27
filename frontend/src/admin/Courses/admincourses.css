@@ -1,0 +1,17 @@
+.admin-courses {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .left {
+        .dashboard-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+            margin-left: 5px;
+        }
+    }
+}
