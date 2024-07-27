@@ -3,7 +3,7 @@ import axios from 'axios'
 import { server } from '../main';
 import toast, { Toaster } from 'react-hot-toast'
 
-const UserContext = createContext();
+const UserContext = createContext(); 
 
 export const UserContextProvider = ({children}) => {
 
