@@ -11,4 +11,4 @@ router.delete('/course/:id', isAuth, isAdmin, deleteCourse)
 router.delete('/lecture/:id', isAuth, isAdmin, deleteLecture);
 router.get('/stats', isAuth, isAdmin, getAllStats);
 
-export default router;
+export default router; 
