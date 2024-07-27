@@ -5,7 +5,7 @@ import axios from 'axios';
 import { server } from '../../main';
 import './dashboard.css'
 
-const AdminDashboard = ({user}) => {
+const AdminDashboard = ({user}) => { 
     const navigate = useNavigate();
 
     if(user && user.role !== 'admin')

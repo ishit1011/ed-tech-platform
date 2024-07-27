@@ -57,7 +57,7 @@ export const deleteLecture = TryCatch(async(req,res)=>{
         message: 'Lecture deleted'
     })
 })
-
+ 
 const unlinkAsync = promisify(fs.unlink);
 
 export const deleteCourse = TryCatch(async(req,res)=>{

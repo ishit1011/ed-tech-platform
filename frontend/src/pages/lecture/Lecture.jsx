@@ -58,7 +58,7 @@ const Lecture = ({user}) => {
             console.log(error);
             setLecLoading(false);
         }
-    }
+    } 
 
     const changeVideoHandler = (e) => {
         const file = e.target.files[0];
