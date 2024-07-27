@@ -20,6 +20,8 @@ import Lecture from './pages/lecture/Lecture'
 import AdminDashboard from './admin/Dashboard/AdminDashboard'
 import AdminCourses from './admin/Courses/AdminCourses'
 import AdminUsers from './admin/Users/AdminUsers'
+import ForgotPass from './pages/auth/ForgotPass'
+import ResetPass from './pages/auth/ResetPass'
 
 const App = () => {
   const {isAuth, user, loading} = UserData();
@@ -43,6 +45,8 @@ const App = () => {
       <Route path='/admin/dashboard' element={isAuth ? <AdminDashboard user={user} /> : <Login />} />
       <Route path='/admin/course' element={isAuth ? <AdminCourses user={user} /> : <Login />} />
       <Route path='/admin/users' element={isAuth ? <AdminUsers user={user} /> : <Login />} />
+      <Route path='/forgot' element={isAuth ? <Home/> : <ForgotPass />} />
+      <Route path='/reset-password/:token' element={isAuth ? <Home/> : <ResetPass />} />
     </Routes>
     <Footer />
     </BrowserRouter>)}

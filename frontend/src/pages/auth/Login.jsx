@@ -8,7 +8,7 @@ const Login = () => {
 
     const {btnLoading, loginUser} = UserData();
     const navigate = useNavigate();
-
+ 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -44,6 +44,10 @@ const Login = () => {
             </form>
             <p>
                 Don't have an account <Link to={'/register'}>Register</Link>
+            </p>
+            <p>
+                <Link to='/forgot'>
+                Forgot Password</Link>
             </p>
         </div>
     </div>
