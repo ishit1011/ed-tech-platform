@@ -32,7 +32,7 @@
 
             h2 {
                 font-size: 24px;
-                color: #8a4baf;
+                color: #6CB4EE;
                 margin-bottom: 15px;
             }
 
@@ -71,13 +71,13 @@
             cursor: pointer;
 
             &:hover {
-                background-color: #8a4baf;
+                background-color: #6CB4EE;
                 color: white;
             }
         }
 
         .active {
-            background-color: #8a4baf;
+            background-color: #6CB4EE;
             color: white;
         }
     }

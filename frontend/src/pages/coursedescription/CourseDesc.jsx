@@ -68,7 +68,7 @@ const CourseDesc = ({user}) => {
             },
 
             theme: {
-                color: '#8a4baf'
+                color: '#6CB4EE'
             }
         }
 
